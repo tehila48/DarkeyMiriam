@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2944272e5efd474995438411bfd5dee8" Name="Diagram1" ZoomLevel="46">
+        <EntityTypeShape EntityType="DBDarkeyMiriamModel.AvailableTrip" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBDarkeyMiriamModel.AvailableTripTemporary" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBDarkeyMiriamModel.CodeStatus" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBDarkeyMiriamModel.ExecutedTrips" Width="1.5" PointX="6" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBDarkeyMiriamModel.NotExecutedTrips" Width="1.5" PointX="6" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBDarkeyMiriamModel.Patient" Width="1.5" PointX="1.5" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBDarkeyMiriamModel.UsersPassword" Width="1.5" PointX="8.125" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBDarkeyMiriamModel.Volunteer" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="DBDarkeyMiriamModel.AvailableTrip_ToVolunteer" ManuallyRouted="false" />
+        <AssociationConnector Association="DBDarkeyMiriamModel.AvailableTripTemporary_ToVolunteer" ManuallyRouted="false" />
+        <AssociationConnector Association="DBDarkeyMiriamModel.UsersPassword_ToCodeStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="DBDarkeyMiriamModel.ExecutedTrips_ToVolunteer" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DBDarkeyMiriamModel.Request" Width="1.5" PointX="3.75" PointY="11" />
+        <AssociationConnector Association="DBDarkeyMiriamModel.ExecutedTrips_ToRequest" />
+        <AssociationConnector Association="DBDarkeyMiriamModel.NotExecutedTrips_ToRequest" />
+        <AssociationConnector Association="DBDarkeyMiriamModel.FK_Request_ToTable" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

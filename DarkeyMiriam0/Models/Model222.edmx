@@ -1,0 +1,610 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBDarkeyMiriamModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AvailableTrip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeVolunteer" Type="int" Nullable="false" />
+          <Property Name="Day" Type="nchar" MaxLength="10" />
+          <Property Name="StartTime" Type="time" Precision="7" />
+          <Property Name="FinishTime" Type="time" Precision="7" />
+          <Property Name="AddressSource" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumOfSeats" Type="int" />
+          <Property Name="Note" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AvailableTripTemporary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeVolunteer" Type="int" Nullable="false" />
+          <Property Name="day" Type="nchar" MaxLength="10" />
+          <Property Name="StartTime" Type="time" Precision="7" />
+          <Property Name="FinishTime" Type="time" Precision="7" />
+          <Property Name="AddressSource" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nchar" MaxLength="10" />
+          <Property Name="NumOfSeats" Type="int" />
+        </EntityType>
+        <EntityType Name="CodeStatus">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ExecutedTrips">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeRequest" Type="int" />
+          <Property Name="CodeVolunteer" Type="int" />
+        </EntityType>
+        <EntityType Name="NotExecutedTrips">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CodeRequst" Type="int" />
+          <Property Name="Reason" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdPatient" Type="int" Nullable="false" />
+          <Property Name="Telephone" Type="nchar" MaxLength="10" />
+          <Property Name="Pelephone" Type="nchar" MaxLength="10" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateRequest " Type="date" />
+          <Property Name="CurrentDate" Type="date" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressSource" Type="nvarchar" MaxLength="50" />
+          <Property Name="AddressDestination" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumOfSeats" Type="int" />
+          <Property Name="AdditionalPelephone" Type="nchar" MaxLength="10" />
+          <Property Name="CodePatient" Type="int" />
+          <Property Name="day" Type="nchar" MaxLength="10" />
+          <Property Name="hour" Type="time" Precision="7" />
+        </EntityType>
+        <EntityType Name="UsersPassword">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CodeStatus" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Volunteer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdVolunteer" Type="int" Nullable="false" />
+          <Property Name="Telephone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pelephone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="AvailableTrip_ToVolunteer">
+          <End Role="Volunteer" Type="Self.Volunteer" Multiplicity="1" />
+          <End Role="AvailableTrip" Type="Self.AvailableTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volunteer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AvailableTrip">
+              <PropertyRef Name="CodeVolunteer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AvailableTripTemporary_ToVolunteer">
+          <End Role="Volunteer" Type="Self.Volunteer" Multiplicity="1" />
+          <End Role="AvailableTripTemporary" Type="Self.AvailableTripTemporary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volunteer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AvailableTripTemporary">
+              <PropertyRef Name="CodeVolunteer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExecutedTrips_ToRequest">
+          <End Role="Request" Type="Self.Request" Multiplicity="0..1" />
+          <End Role="ExecutedTrips" Type="Self.ExecutedTrips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExecutedTrips">
+              <PropertyRef Name="CodeRequest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExecutedTrips_ToVolunteer">
+          <End Role="Volunteer" Type="Self.Volunteer" Multiplicity="0..1" />
+          <End Role="ExecutedTrips" Type="Self.ExecutedTrips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volunteer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExecutedTrips">
+              <PropertyRef Name="CodeVolunteer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_ToTable">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="0..1" />
+          <End Role="Request" Type="Self.Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="CodePatient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="NotExecutedTrips_ToRequest">
+          <End Role="Request" Type="Self.Request" Multiplicity="0..1" />
+          <End Role="NotExecutedTrips" Type="Self.NotExecutedTrips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NotExecutedTrips">
+              <PropertyRef Name="CodeRequst" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsersPassword_ToCodeStatus">
+          <End Role="CodeStatus" Type="Self.CodeStatus" Multiplicity="1" />
+          <End Role="UsersPassword" Type="Self.UsersPassword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeStatus">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="UsersPassword">
+              <PropertyRef Name="CodeStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBDarkeyMiriamModelStoreContainer">
+          <EntitySet Name="AvailableTrip" EntityType="Self.AvailableTrip" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AvailableTripTemporary" EntityType="Self.AvailableTripTemporary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CodeStatus" EntityType="Self.CodeStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExecutedTrips" EntityType="Self.ExecutedTrips" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NotExecutedTrips" EntityType="Self.NotExecutedTrips" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersPassword" EntityType="Self.UsersPassword" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Volunteer" EntityType="Self.Volunteer" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="AvailableTrip_ToVolunteer" Association="Self.AvailableTrip_ToVolunteer">
+            <End Role="Volunteer" EntitySet="Volunteer" />
+            <End Role="AvailableTrip" EntitySet="AvailableTrip" />
+          </AssociationSet>
+          <AssociationSet Name="AvailableTripTemporary_ToVolunteer" Association="Self.AvailableTripTemporary_ToVolunteer">
+            <End Role="Volunteer" EntitySet="Volunteer" />
+            <End Role="AvailableTripTemporary" EntitySet="AvailableTripTemporary" />
+          </AssociationSet>
+          <AssociationSet Name="ExecutedTrips_ToRequest" Association="Self.ExecutedTrips_ToRequest">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="ExecutedTrips" EntitySet="ExecutedTrips" />
+          </AssociationSet>
+          <AssociationSet Name="ExecutedTrips_ToVolunteer" Association="Self.ExecutedTrips_ToVolunteer">
+            <End Role="Volunteer" EntitySet="Volunteer" />
+            <End Role="ExecutedTrips" EntitySet="ExecutedTrips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_ToTable" Association="Self.FK_Request_ToTable">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          <AssociationSet Name="NotExecutedTrips_ToRequest" Association="Self.NotExecutedTrips_ToRequest">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="NotExecutedTrips" EntitySet="NotExecutedTrips" />
+          </AssociationSet>
+          <AssociationSet Name="UsersPassword_ToCodeStatus" Association="Self.UsersPassword_ToCodeStatus">
+            <End Role="CodeStatus" EntitySet="CodeStatus" />
+            <End Role="UsersPassword" EntitySet="UsersPassword" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBDarkeyMiriamModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AvailableTrip">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeVolunteer" Type="Int32" Nullable="false" />
+          <Property Name="Day" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="StartTime" Type="Time" Precision="7" />
+          <Property Name="FinishTime" Type="Time" Precision="7" />
+          <Property Name="AddressSource" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumOfSeats" Type="Int32" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Volunteer" Relationship="Self.AvailableTrip_ToVolunteer" FromRole="AvailableTrip" ToRole="Volunteer" />
+        </EntityType>
+        <EntityType Name="AvailableTripTemporary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeVolunteer" Type="Int32" Nullable="false" />
+          <Property Name="day" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="StartTime" Type="Time" Precision="7" />
+          <Property Name="FinishTime" Type="Time" Precision="7" />
+          <Property Name="AddressSource" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="NumOfSeats" Type="Int32" />
+          <NavigationProperty Name="Volunteer" Relationship="Self.AvailableTripTemporary_ToVolunteer" FromRole="AvailableTripTemporary" ToRole="Volunteer" />
+        </EntityType>
+        <EntityType Name="CodeStatus">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UsersPassword" Relationship="Self.UsersPassword_ToCodeStatus" FromRole="CodeStatus" ToRole="UsersPassword" />
+        </EntityType>
+        <EntityType Name="ExecutedTrips">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeRequest" Type="Int32" />
+          <Property Name="CodeVolunteer" Type="Int32" />
+          <NavigationProperty Name="Volunteer" Relationship="Self.ExecutedTrips_ToVolunteer" FromRole="ExecutedTrips" ToRole="Volunteer" />
+          <NavigationProperty Name="Request" Relationship="DBDarkeyMiriamModel.ExecutedTrips_ToRequest" FromRole="ExecutedTrips" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="NotExecutedTrips">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CodeRequst" Type="Int32" />
+          <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Request" Relationship="DBDarkeyMiriamModel.NotExecutedTrips_ToRequest" FromRole="NotExecutedTrips" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdPatient" Type="Int32" Nullable="false" />
+          <Property Name="Telephone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Pelephone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Request" Relationship="DBDarkeyMiriamModel.FK_Request_ToTable" FromRole="Patient" ToRole="Request" />
+        </EntityType>
+        <EntityType Name="UsersPassword">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CodeStatus" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CodeStatus1" Relationship="Self.UsersPassword_ToCodeStatus" FromRole="UsersPassword" ToRole="CodeStatus" />
+        </EntityType>
+        <EntityType Name="Volunteer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdVolunteer" Type="Int32" Nullable="false" />
+          <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pelephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AvailableTrip" Relationship="Self.AvailableTrip_ToVolunteer" FromRole="Volunteer" ToRole="AvailableTrip" />
+          <NavigationProperty Name="AvailableTripTemporary" Relationship="Self.AvailableTripTemporary_ToVolunteer" FromRole="Volunteer" ToRole="AvailableTripTemporary" />
+          <NavigationProperty Name="ExecutedTrips" Relationship="Self.ExecutedTrips_ToVolunteer" FromRole="Volunteer" ToRole="ExecutedTrips" />
+        </EntityType>
+        <Association Name="AvailableTrip_ToVolunteer">
+          <End Role="Volunteer" Type="Self.Volunteer" Multiplicity="1" />
+          <End Role="AvailableTrip" Type="Self.AvailableTrip" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volunteer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AvailableTrip">
+              <PropertyRef Name="CodeVolunteer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AvailableTripTemporary_ToVolunteer">
+          <End Role="Volunteer" Type="Self.Volunteer" Multiplicity="1" />
+          <End Role="AvailableTripTemporary" Type="Self.AvailableTripTemporary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volunteer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AvailableTripTemporary">
+              <PropertyRef Name="CodeVolunteer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsersPassword_ToCodeStatus">
+          <End Role="CodeStatus" Type="Self.CodeStatus" Multiplicity="1" />
+          <End Role="UsersPassword" Type="Self.UsersPassword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CodeStatus">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="UsersPassword">
+              <PropertyRef Name="CodeStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ExecutedTrips_ToVolunteer">
+          <End Role="Volunteer" Type="Self.Volunteer" Multiplicity="0..1" />
+          <End Role="ExecutedTrips" Type="Self.ExecutedTrips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Volunteer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExecutedTrips">
+              <PropertyRef Name="CodeVolunteer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBDarkeyMiriamEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AvailableTrip" EntityType="Self.AvailableTrip" />
+          <EntitySet Name="AvailableTripTemporary" EntityType="Self.AvailableTripTemporary" />
+          <EntitySet Name="CodeStatus" EntityType="Self.CodeStatus" />
+          <EntitySet Name="ExecutedTrips" EntityType="Self.ExecutedTrips" />
+          <EntitySet Name="NotExecutedTrips" EntityType="Self.NotExecutedTrips" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" />
+          <EntitySet Name="UsersPassword" EntityType="Self.UsersPassword" />
+          <EntitySet Name="Volunteer" EntityType="Self.Volunteer" />
+          <AssociationSet Name="AvailableTrip_ToVolunteer" Association="Self.AvailableTrip_ToVolunteer">
+            <End Role="Volunteer" EntitySet="Volunteer" />
+            <End Role="AvailableTrip" EntitySet="AvailableTrip" />
+          </AssociationSet>
+          <AssociationSet Name="AvailableTripTemporary_ToVolunteer" Association="Self.AvailableTripTemporary_ToVolunteer">
+            <End Role="Volunteer" EntitySet="Volunteer" />
+            <End Role="AvailableTripTemporary" EntitySet="AvailableTripTemporary" />
+          </AssociationSet>
+          <AssociationSet Name="UsersPassword_ToCodeStatus" Association="Self.UsersPassword_ToCodeStatus">
+            <End Role="CodeStatus" EntitySet="CodeStatus" />
+            <End Role="UsersPassword" EntitySet="UsersPassword" />
+          </AssociationSet>
+          <AssociationSet Name="ExecutedTrips_ToVolunteer" Association="Self.ExecutedTrips_ToVolunteer">
+            <End Role="Volunteer" EntitySet="Volunteer" />
+            <End Role="ExecutedTrips" EntitySet="ExecutedTrips" />
+          </AssociationSet>
+          <EntitySet Name="Request" EntityType="DBDarkeyMiriamModel.Request" />
+          <AssociationSet Name="ExecutedTrips_ToRequest" Association="DBDarkeyMiriamModel.ExecutedTrips_ToRequest">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="ExecutedTrips" EntitySet="ExecutedTrips" />
+          </AssociationSet>
+          <AssociationSet Name="NotExecutedTrips_ToRequest" Association="DBDarkeyMiriamModel.NotExecutedTrips_ToRequest">
+            <End Role="Request" EntitySet="Request" />
+            <End Role="NotExecutedTrips" EntitySet="NotExecutedTrips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Request_ToTable" Association="DBDarkeyMiriamModel.FK_Request_ToTable">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="Request" EntitySet="Request" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateRequest_" Type="DateTime" Precision="0" />
+          <Property Name="CurrentDate" Type="DateTime" Precision="0" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressSource" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AddressDestination" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumOfSeats" Type="Int32" />
+          <Property Name="AdditionalPelephone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CodePatient" Type="Int32" />
+          <Property Name="day" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="hour" Type="Time" Precision="7" />
+          <NavigationProperty Name="ExecutedTrips" Relationship="DBDarkeyMiriamModel.ExecutedTrips_ToRequest" FromRole="Request" ToRole="ExecutedTrips" />
+          <NavigationProperty Name="NotExecutedTrips" Relationship="DBDarkeyMiriamModel.NotExecutedTrips_ToRequest" FromRole="Request" ToRole="NotExecutedTrips" />
+          <NavigationProperty Name="Patient" Relationship="DBDarkeyMiriamModel.FK_Request_ToTable" FromRole="Request" ToRole="Patient" />
+        </EntityType>
+        <Association Name="ExecutedTrips_ToRequest">
+          <End Type="DBDarkeyMiriamModel.Request" Role="Request" Multiplicity="0..1" />
+          <End Type="DBDarkeyMiriamModel.ExecutedTrips" Role="ExecutedTrips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExecutedTrips">
+              <PropertyRef Name="CodeRequest" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="NotExecutedTrips_ToRequest">
+          <End Type="DBDarkeyMiriamModel.Request" Role="Request" Multiplicity="0..1" />
+          <End Type="DBDarkeyMiriamModel.NotExecutedTrips" Role="NotExecutedTrips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Request">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NotExecutedTrips">
+              <PropertyRef Name="CodeRequst" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Request_ToTable">
+          <End Type="DBDarkeyMiriamModel.Patient" Role="Patient" Multiplicity="0..1" />
+          <End Type="DBDarkeyMiriamModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="CodePatient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBDarkeyMiriamModelStoreContainer" CdmEntityContainer="DBDarkeyMiriamEntities">
+          <EntitySetMapping Name="AvailableTrip">
+            <EntityTypeMapping TypeName="DBDarkeyMiriamModel.AvailableTrip">
+              <MappingFragment StoreEntitySet="AvailableTrip">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CodeVolunteer" ColumnName="CodeVolunteer" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="FinishTime" ColumnName="FinishTime" />
+                <ScalarProperty Name="AddressSource" ColumnName="AddressSource" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="NumOfSeats" ColumnName="NumOfSeats" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AvailableTripTemporary">
+            <EntityTypeMapping TypeName="DBDarkeyMiriamModel.AvailableTripTemporary">
+              <MappingFragment StoreEntitySet="AvailableTripTemporary">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CodeVolunteer" ColumnName="CodeVolunteer" />
+                <ScalarProperty Name="day" ColumnName="day" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="FinishTime" ColumnName="FinishTime" />
+                <ScalarProperty Name="AddressSource" ColumnName="AddressSource" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="NumOfSeats" ColumnName="NumOfSeats" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CodeStatus">
+            <EntityTypeMapping TypeName="DBDarkeyMiriamModel.CodeStatus">
+              <MappingFragment StoreEntitySet="CodeStatus">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExecutedTrips">
+            <EntityTypeMapping TypeName="DBDarkeyMiriamModel.ExecutedTrips">
+              <MappingFragment StoreEntitySet="ExecutedTrips">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CodeRequest" ColumnName="CodeRequest" />
+                <ScalarProperty Name="CodeVolunteer" ColumnName="CodeVolunteer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NotExecutedTrips">
+            <EntityTypeMapping TypeName="DBDarkeyMiriamModel.NotExecutedTrips">
+              <MappingFragment StoreEntitySet="NotExecutedTrips">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CodeRequst" ColumnName="CodeRequst" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patient">
+            <EntityTypeMapping TypeName="DBDarkeyMiriamModel.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IdPatient" ColumnName="IdPatient" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Pelephone" ColumnName="Pelephone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsersPassword">
+            <EntityTypeMapping TypeName="DBDarkeyMiriamModel.UsersPassword">
+              <MappingFragment StoreEntitySet="UsersPassword">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CodeStatus" ColumnName="CodeStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Volunteer">
+            <EntityTypeMapping TypeName="DBDarkeyMiriamModel.Volunteer">
+              <MappingFragment StoreEntitySet="Volunteer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IdVolunteer" ColumnName="IdVolunteer" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Pelephone" ColumnName="Pelephone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Request">
+            <EntityTypeMapping TypeName="DBDarkeyMiriamModel.Request">
+              <MappingFragment StoreEntitySet="Request">
+                <ScalarProperty Name="hour" ColumnName="hour" />
+                <ScalarProperty Name="day" ColumnName="day" />
+                <ScalarProperty Name="CodePatient" ColumnName="CodePatient" />
+                <ScalarProperty Name="AdditionalPelephone" ColumnName="AdditionalPelephone" />
+                <ScalarProperty Name="NumOfSeats" ColumnName="NumOfSeats" />
+                <ScalarProperty Name="AddressDestination" ColumnName="AddressDestination" />
+                <ScalarProperty Name="AddressSource" ColumnName="AddressSource" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="CurrentDate" ColumnName="CurrentDate" />
+                <ScalarProperty Name="DateRequest_" ColumnName="DateRequest " />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

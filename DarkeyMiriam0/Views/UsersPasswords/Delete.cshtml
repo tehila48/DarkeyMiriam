@@ -1,0 +1,74 @@
+﻿@model DarkeyMiriam0.Models.UsersPassword
+
+@{
+    ViewBag.Title = "מחיקת משתמש";
+}
+
+<table>
+    <tr>
+    <tr>
+        <td><div style="height:30px;"></div></td>
+    </tr>
+    <tr>
+        <td class="title">מחיקת משתמש</td>
+    <tr>
+        <td><div style="height:30px;"></div></td>
+    </tr>
+</table>
+
+
+<div style="width:550px;">
+
+    <table class="details">
+        <tr>
+            <td>
+                <h3> שם משתמש</h3>
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.Name)
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                <h3>קוד</h3>
+            </td>
+
+
+
+            <td>
+                @Html.DisplayFor(model => model.Password)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h3> קוד תפקיד</h3>
+            </td>
+
+            <td>
+                @Html.DisplayFor(model => model.CodeStatus)
+            </td>
+        </tr>
+
+    </table>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <table style="margin-right:110px;">
+            <tr>
+                <td><div style="height:15px;"></div></td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="מחק" class="linkdetails" style="border-radius:1em;" />
+                </td>
+                <td><div style="width:30px;"></div></td>
+                <td>
+                    @Html.ActionLink("חזור לרשימה", "Index", "UserPasswords", null, new { @class = "linkdetails" })
+                </td>
+            </tr>
+        </table>
+    }
+</div>

@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - דרכי מרים</title>
+    @Styles.Render("~/Content/Site.css")
+
+</head>
+
+<body>
+    <table style="width:100%;height:100%">
+        <tr>
+            <td>
+                <div class="menu">
+                    <table>
+                        <tr>
+                            @if (Session["Status"] != null && Session["Status"].ToString().IsDecimal())
+                            {
+                                if (int.Parse(Session["Status"].ToString()) == 1111)
+                                {
+                                    <td class="linkmenu">שלום @Session["name1"]</td>
+                                    <td>@Html.ActionLink("דף הבית", "Index", "Home", null, new { @class = "linkmenu" })</td>
+                                    <td>@Html.ActionLink("פרטים אישיים", "Details", "Volunteers", new { id = Session["theID"] } ,new { @class = "linkmenu" })</td>
+                                    <td>@Html.ActionLink("הצעת הסעה קבועה", "Create", "AvailableTrips", null, new { @class = "linkmenu" })</td>
+                                    <td>@Html.ActionLink("הצעת הסעה זמנית", "Create", "AvailableTripTemporaries", null, new { @class = "linkmenu" })</td>
+
+                                }
+                                if (int.Parse(Session["Status"].ToString()) == 2222)
+                                {
+                                    <td class="linkmenu">שלום @Session["name1"]</td>
+                                    <td>@Html.ActionLink("דף הבית", "Index", "Home", null, new { @class = "linkmenu" })</td>
+                                    <td>@Html.ActionLink("פרטים אישיים", "Details", "Patients", new { id = Session["theID"] }, new { @class = "linkmenu" })</td>
+                                    <td>@Html.ActionLink("בקשת נסיעה", "Create", "Requests", null, new { @class = "linkmenu" })</td>
+
+                                }
+                                if (int.Parse(Session["Status"].ToString()) == 3333)
+                                {
+                                    <td>@Html.ActionLink("דף הבית", "Index", "Home", null, new { @class = "linkmenu" })</td>
+                                    <td>@Html.ActionLink("מתנדבים", "Index", "volunteers", null, new { @class = "linkmenu" })</td>
+                                    <td>@Html.ActionLink("מסתייעים", "Index", "Patients", null, new { @class = "linkmenu" })</td>
+                                    <td>@Html.ActionLink("הסעות קבוע", "Index", "AvailableTrips", null, new { @class = "linkmenu" })</td>
+                                    <td>@Html.ActionLink("הסעות זמני", "Index", "AvailableTripTemporaries", null, new { @class = "linkmenu" })</td>
+                                    <td>@Html.ActionLink("בקשות", "Index", "requests", null, new { @class = "linkmenu" })</td>
+                                    <td>@Html.ActionLink("נסיעות שהתבצעו", "Index", "ExecutedTrips", null, new { @class = "linkmenu" })</td>
+                                    @*<td>@Html.ActionLink("נסיעות שהתבטלו", "Index", "CodeStatus", null, new { @class = "linkmenu" })</td>*@
+                                    <td>@Html.ActionLink("משתמשים", "Index", "UsersPasswords", null, new { @class = "linkmenu" })</td>
+                                    <td>@Html.ActionLink("סטטוסים", "Index", "CodeStatus", null, new { @class = "linkmenu" })</td>
+                                }
+                            }
+
+                            <td><div style=" width:50px; height:50px; "></div></td>
+                            <td><img src="~/Content/images/redlogo.jpg" width="150" height="50" title="logo" alt="logo" /></td>
+
+                        </tr>
+
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+
+
+        <tr>
+
+            <td>
+                @RenderBody()
+            </td>
+        </tr>
+    </table>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

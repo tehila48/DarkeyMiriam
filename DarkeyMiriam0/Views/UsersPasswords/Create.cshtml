@@ -1,0 +1,76 @@
+﻿@model DarkeyMiriam0.Models.UsersPassword
+
+@{
+    ViewBag.Title = "משתמש חדש";
+}
+
+<table>
+    <tr>
+    <tr>
+        <td><div style="height:30px;"></div></td>
+    </tr>
+    <tr>
+        <td class="title">משתמש חדש</td>
+    <tr>
+        <td><div style="height:30px;"></div></td>
+    </tr>
+</table>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div style="width:550px;">
+        <table class="details">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+           
+
+            <tr>
+                <td>
+                    <h3>שם משתמש</h3>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "filterText" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <h3>סיסמא</h3>
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "filterText" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h3>קוד סטטוס</h3>
+                </td>
+                <td>
+                    @Html.DropDownList("CodeStatus", null, htmlAttributes: new { @class = "filterText" })
+                    @Html.ValidationMessageFor(model => model.CodeStatus, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+        </table>
+    </div>
+    <table style="margin-right:110px;">
+        <tr>
+            <td><div style="height:15px;"></div></td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="צור" class="linkdetails" style="border-radius:1em;" />
+            </td>
+            <td><div style="width:30px;"></div></td>
+            <td>
+                @Html.ActionLink("חזור לרשימה", "Index", "UsersPasswords", null, new { @class = "linkdetails" })
+            </td>
+        </tr>
+    </table>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

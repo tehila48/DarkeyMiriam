@@ -1,0 +1,90 @@
+﻿@using Newtonsoft.Json
+@model IEnumerable<DarkeyMiriam0.Models.UsersVM>
+
+@{
+    ViewBag.Title = "קודי משתמשים";
+}
+
+<script src="Scripts/angular/angular.js"></script>
+<script src="Scripts/angular/angular-route.js"></script>
+<script src="js/app.js"></script>
+<script src="js/services.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/directives.js"></script>
+<script src="Scripts/jquery-1.10.2.min.js"></script>
+
+<table>
+    <tr>
+    <tr>
+        <td><div style="height:30px;"></div></td>
+    </tr>
+    <tr>
+        <td class="title">קודי משתמשים</td>
+        <td><div style=" width:700px;"></div></td>
+        <td> @Html.ActionLink("צור חדש", "Create", "UsersPasswords", null, new { @class = "linkdetails" })</td>
+    </tr>
+    <tr>
+        <td><div style="height:30px;"></div></td>
+    </tr>
+</table>
+<table ng-app="myApp" ng-controller="UsersPasswordsController" ng-init="initModel(@JsonConvert.SerializeObject(Model))" >
+    <tr>
+        <td colspan="7">
+            <table class="filter">
+                <tr>
+                    <td><h3>שם משתמש</h3></td>
+                    <td>
+                        <input type="text" ng-model="shemFilter" class="filterText"/>
+                    </td>
+                    <td><h3>סיסמה</h3></td>
+                    <td>
+                        <input type="text" ng-model="passwordFilter" class="filterText"/>
+                    </td>
+                    <td><h3>קוד תפקיד</h3></td>
+                    <td>
+                        <input type="text" ng-model="statusFilter" class="filterText"/>
+                    </td>
+                  
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table cellpadding="10" cellspacing="10" class="details">
+                <tr>
+                    <td>
+                        <div>
+                            <h3>  שם משתמש</h3>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <h3>סיסמה</h3>
+
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <h3>קוד תפקיד </h3>
+
+                        </div>
+                    </td>
+             </tr>
+                <tr data-ng-repeat="a in userpassword| filter:{NameUs:shemFilter,PasswordUs:passwordFilter,StatusSta:statusFilter}">
+                    <td>{{a.NameUs}} &nbsp;</td>
+                    <td>{{a.PasswordUs}}  &nbsp;</td>
+                    <td>{{a.StatusSta}}  &nbsp;</td>
+                    <td><a data-ng-href="@Url.Action("Edit", "UsersPasswords")/{{a.Id}}" class="linkdetails">עדכון  </a> </td>
+                    <td><a data-ng-href="@Url.Action("Details", "UsersPasswords")/{{a.Id}}" class="linkdetails">פרטים  </a></td>
+                    <td><a data-ng-href="@Url.Action("Delete", "UsersPasswords")/{{a.Id}}" class="linkdetails">מחיקה  </a></td>
+                </tr>
+
+
+                
+            </table>
+        </td>
+    </tr>
+</table>
+
