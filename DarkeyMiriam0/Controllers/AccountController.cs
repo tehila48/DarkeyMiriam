@@ -22,6 +22,7 @@ using System.Net;
 namespace DarkeyMiriam0.Controllers
 {
     [Authorize]
+
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
